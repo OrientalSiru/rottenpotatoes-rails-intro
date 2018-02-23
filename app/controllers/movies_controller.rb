@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-   @movies = Moe.all.order(params[:sort])
+   @movies = Moviee.all.order(params[:sort])
   end
 
   def new
