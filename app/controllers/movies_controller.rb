@@ -11,11 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:sort]
-      @movies = Movie.order(params[:sort])
-    else
-      @movies = Movie.all
-    end
+   @movies = Moe.all.order(params[:sort])
   end
 
   def new
