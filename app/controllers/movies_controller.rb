@@ -11,7 +11,27 @@ class MoviesController < ApplicationController
   end
 
   def index
-   @movies = Movie.all.order(params[:sort])
+    @movies = Movie.all.order(params[:sort])
+    
+    
+    #https://stackoverflow.com/questions/9658881/rails-select-unique-values-from-a-column
+    @all_ratings = Movie.order(:rating).select(:rating).map(&:rating).uniq
+    
+    #initially all checked
+    @selected = @all_ratings
+    #pick ones only checked
+    if params[:ratings]
+      @selected = params[:ratings].keys
+    end
+    
+    @selected.each do |rating|
+      params[rating] = 1
+    end
+    
+    if params[:ratings]
+     @movies = Movie.where(rating: @selected)
+    end
+   
   end
 
   def new
